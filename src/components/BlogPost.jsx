@@ -26,6 +26,7 @@ const BlogPost = () =>
     />
     <br/>
     <button>Add Post</button>
+    <button onClick={e=> blogInput.setLoggedIn(false)}>Logout</button>
     </form>
     </>
   )

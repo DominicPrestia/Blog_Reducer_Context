@@ -1,6 +1,7 @@
 import { useState, createContext, Reducer, useReducer} from "react";
 import Blog from "./components/Blog";
 import BlogPost from "./components/BlogPost";
+import Login from "./components/Login";
 
 export const BlogContext = createContext();
 
@@ -32,7 +33,9 @@ function App() {
 let [title,setTitle] = useState('')
 let [author,setAuthor] = useState('')
 let [blog, dispatch] = useReducer(reducer,[])
-let blogInput = {title,setTitle,author,setAuthor,handleSubmit}
+let [loggedIn, setLoggedIn] = useState(false);
+let blogInput = {title,setTitle,author,setAuthor,handleSubmit,setLoggedIn}
+
 
 function handleSubmit(e)
 {
@@ -45,10 +48,13 @@ function handleSubmit(e)
 
   return (
     <>
+    
+      {loggedIn ? 
       <BlogContext.Provider value={blogInput}>
         <h1>Blog Application Component Title</h1>
         <BlogPost/>
-      </BlogContext.Provider>
+        </BlogContext.Provider> :
+     <Login setLoggedIn={setLoggedIn}/>}
 
       {blog.map(postList =>{
         return <Blog dispatch={dispatch} title={postList.title} author = {postList.author} id={postList.id}/>
